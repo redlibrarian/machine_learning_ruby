@@ -26,7 +26,144 @@
 		<div class="reveal">
 			<div class="slides">
         <section>
+          <h3>Introduction to Machine Learning using Ruby</h3>
         </section>
+
+        <section>
+          <h3>Outline:</h3>
+          <ul><li>What is Machine Learning?</li>
+              <li>Programming Languages and Platforms</li>
+              <li>Visualizing Machine Learning</li>
+              <li>Machine Learning and Statistics</li>
+              <li>Prediction</li>
+              <li>Classification</li>
+              <li>Neural Networks</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>What is Machine Learning?</h3>
+          <div style="text-align:left">
+          <p>ML is an artificial intelligence technique</p>
+          <p>Two kinds of artificial intelligence:</p>
+          <ul><li>Semantic</li>
+              <li>Connectionist</li>
+          </ul>
+          <p>ML is a subset of connectionist AI</p>
+          </div>
+        </section>
+
+        <section>
+          <ul><li>Deep Learning and Reinforcement Learning</li>
+            <li>Data Mining</li>
+            <li>Big Data</li>
+            <li>Analytics, Prediction, Classification</li></ul>
+        </section>
+
+        <section>
+          <h3>Programming Languages and Platforms</h3>
+          <div style="text-align:left">
+            <ul><li>LISP</li>
+                <li>Python</li>
+                <li>R</li>
+                <li>TensorFlow</li>
+                <li>PyTorch</li>
+                <li>Gluon</li>
+            </ul>
+            <p style="text-align:left">So why Ruby?</p>
+        </section>
+
+        <section>
+          <h3>Visualizing Machine Learning</h3>
+          <p style="text-align:left">Start with a formula (in this case
+         <strong>y = 2x</strong> and then plot the points...</p>
+          <img src="img/lineplot.png" height="400">
+          <p>y = 2x</p>
+        </section>
+
+        <section>
+          <p style="text-align:left">The relationship between x and y
+          (in this case <strong>y = 2x</strong>) is known in advance,
+          allowing y to be determined for any x. But what if you had all
+          the points, but you didn't know the relationship?</p>
+        </section>
+
+      <section>
+        <img src="img/linear.png" height="500"/>
+      </section>
+
+      <section>
+        <p style="text-align:left">Determining the relationship between
+        x and y <strong>builds a model</strong> of that relationship.<br
+           /><br />You might want to come up with the exact
+           relationship, which would take a lot of computation power and
+           a lot of arithmetic.<br /><br />But you might not care about
+           the exact relationship, only about a general model. It
+           depends what you are trying to do...</p>
+      </section>
+
+      <section>
+        <h3>Prediction</h3>
+        <br />
+        <h3>Classification</h3>
+      </section>
+
+      <section>
+        <h3>Prediction</h3>
+        <p style="text-align:left">For <strong>y = 2x</strong>:</p>
+        <ul><li>x = 2, y = 4</li>
+          <li>x = 10, y = 20</li>
+          <li>x = 50, y = ?</li>
+          <li>x = 350, y = ?</li>
+        </ul>
+        <p style="text-align:left">Prediction is trivial.</p>
+      </section>
+      
+      <section>
+        <img src="img/linear.png" height="500"/>
+        <p style="text-align:left">Prediction is difficult.</p>
+      </section>
+
+      <section>
+        <img src="img/linear2.png" height="500"/>
+        <p style="text-align:left">Linear Regression allows for
+        prediction.</p>
+      </section>
+
+      <section>
+        <h3>Classification</h3>
+        <p style="text-align:left">Example: suppose admission to a
+        university program is based on the combined score of a verbal
+        and a written test being greater than 500 points. We know the
+        model:<br /><br /><strong>(x + y) > 500 ? accept :
+          reject</strong><br /><br />
+        Classification in this case is trivial.</p>
+      </section>
+
+      <section>
+        <img src="img/jitter.png" height="500"/>
+      </section>
+
+      <section>
+        <img src="img/linear3.png" height="500"/>
+        <p style="text-align:left">Linear Regression allows for
+        classification.</p>
+      </section>
+
+      <section>
+        <p style="text-align:left">Instead of starting from a known
+        model or relationship and calculating or computing values, which
+        is what much traditional programming does, machine learning
+        starts with data, and then figures out an approximate model or
+        relationship between the data points. In this sense, machine
+        learning is <strong>data science</strong>, and so can be thought
+        of in terms of OSEMN (<strong>O</strong>btain,
+        <strong>S</strong>crub, <strong>E</strong>xplore,
+        <strong>M</strong>odel, i<strong>N</strong>terpret).</p>
+      </section>
+          
+
+
           
 			</div>
 		</div>
