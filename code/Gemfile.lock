@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ruby_linear_regression (0.1.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ruby_linear_regression
+
+BUNDLED WITH
+   1.17.2

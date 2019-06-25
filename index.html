@@ -27,6 +27,7 @@
 			<div class="slides">
         <section>
           <h3>Introduction to Machine Learning using Ruby</h3>
+          <h4>https://redlibrarian.github.io/machine_learning_ruby/index.html</h4>
         </section>
 
         <section>
@@ -38,6 +39,7 @@
               <li>Prediction</li>
               <li>Classification</li>
               <li>Neural Networks</li>
+              <li>Ethics and AI</li>
           </ul>
         </section>
 
@@ -52,6 +54,24 @@
           <p>ML is a subset of connectionist AI</p>
           </div>
         </section>
+
+      <section>
+        <p style="text-align:left">Instead of starting from a known
+        model or relationship and calculating or computing values, which
+        is what much traditional programming does, machine learning
+        starts with data, and then figures out an approximate model or
+        relationship between the data points. In this sense, machine
+        learning is <strong>data science</strong>, and so can be thought
+        of in terms of OSEMN (<strong>O</strong>btain,
+        <strong>S</strong>crub, <strong>E</strong>xplore,
+        <strong>M</strong>odel, i<strong>N</strong>terpret).</p>
+      </section>
+
+      <section>
+        <p style="text-align:left">Machine Learning falls under the
+        "Model" category. Machine learning models data in order to
+        accomplish tasks like prediction and classification.</p>
+      </section>
 
         <section>
           <ul><li>Deep Learning and Reinforcement Learning</li>
@@ -76,7 +96,7 @@
         <section>
           <h3>Visualizing Machine Learning</h3>
           <p style="text-align:left">Start with a formula (in this case
-         <strong>y = 2x</strong> and then plot the points...</p>
+         <strong>y = 2x</strong>) and then plot the points...</p>
           <img src="img/lineplot.png" height="400">
           <p>y = 2x</p>
         </section>
@@ -100,6 +120,28 @@
            a lot of arithmetic.<br /><br />But you might not care about
            the exact relationship, only about a general model. It
            depends what you are trying to do...</p>
+      </section>
+
+      <section>
+        <p style="text-align:left">Precisely *how* the model is
+        determined and "fit" to the data is the realm of statistics. You
+        can work with machine learning tools without having a deep
+        understanding of statistics, but the more you know about
+        statistics, the more you can understand the workings and
+        limitations of machine learning.</p>
+      </section>
+
+      <section style="text-align: left">
+        <p>Independent variable: a variable that is <em>given</em>,
+        not dependent on the value of anything else.</p>
+        <p>Dependent variable: a variable whose value is dependent on
+        one or more independent variables.</p>
+        <p>y = 2x: independent variable = x, dependent variable = y
+        (because y is dependent on a calculation involving x).</p>
+      </section>
+
+      <section>
+        <h2>Machine Learning = Statistics + Automation</h2>
       </section>
 
       <section>
@@ -127,7 +169,99 @@
       <section>
         <img src="img/linear2.png" height="500"/>
         <p style="text-align:left">Linear Regression allows for
-        prediction.</p>
+        (approximate) prediction.</p>
+      </section>
+
+      <section>
+        <h3>Exercise: Prediction</h3>
+        <ul><li>Create <a href="code/Gemfile">Gemfile</a></li>
+            <li>Install gems (type "bundle install")</li>
+            <li>Create "data" directory</li>
+            <li>Download <a
+                          href="code/data/staten-island-single-family-home-sales-2015.csv">data</a></li>
+            <li>Write <a
+                          href="code/prediction_linear_regression.rb">code</a></li>
+            <li>Run code (type "ruby prediction_linear_regression.rb")</li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Data Sample</h4>
+<pre><code>
+LAND SQUARE FEET,GROSS SQUARE FEET,SALE PRICE,BOROUGH,NEIGHBORHOOD,TAX CLASS AT PRESENT,BLOCK,LOT,EASE-MENT,BUILDING CLASS AT PRESENT,ZIP CODE,YEAR BUILT,TAX CLASS AT TIME OF SALE,BUILDING CLASS AT TIME OF SALE,SALE DATE
+13390,5994,1495000,5,ANNADALE,1,6475,85, ,A3,10312,2002,1, A3 ,7/28/2015
+6180,4808,975000,5,ANNADALE,1,6370,4, ,A3,10312,1990,1, A3 ,11/20/2015
+13406,4180,1199000,5,ANNADALE,1,5394,4, ,A2,10312,1982,1, A2 ,8/26/2015
+8000,4011,865000,5,ANNADALE,1,6222,54, ,A1,10312,2000,1, A1 ,1/12/2015
+30000,4000,470000,5,ANNADALE,1,6499,40, ,A1,10312,1985,1, A1 ,4/30/2015
+</code></pre>
+      </section>
+      <section>
+        <h4>Simplified Data Sample</h4>
+<pre><code>
+LAND SQUARE FEET,GROSS SQUARE FEET,SALE PRICE
+13390,5994,1495000
+6180,4808,975000
+13406,4180,1199000
+8000,4011,865000
+30000,4000,470000
+</code></pre>
+      </section>
+      <section>
+        <h4>Code Walkthrough</h4>
+        <pre><code data-trim>
+# prediction_linear_regression.rb
+
+require "csv"
+require "ruby_linear_regression"
+
+x_data = []
+y_data = []
+
+# push cleaned data into two arrays, one for the dependent variable, the
+# other for the independent variable.
+CSV.foreach("./data/staten-island-single-family-home-sales-2015.csv", :headers=> true){ |row|
+  x_data.push( [row[0].to_i, row[1].to_i] )
+  y_data.push( row[2].to_i )
+}
+
+# create an instance of the LinearRegression object and give it the data
+linear_regression = RubyLinearRegression.new
+linear_regression.load_training_data(x_data, y_data)
+
+# train the linear regression model
+linear_regression.train_normal_equation
+
+# test
+prediction_data = [2000, 1500]
+predicted_price = linear_regression.predict(prediction_data)
+puts "Predicted selling price for a 1500 sq foot house on a 2000 sq foot property: $#{predicted_price.round}"
+
+
+        </code></pre>
+      </section>
+
+      <section>
+        <h3>Training</h3>
+        <p style="text-align:left">How do you fit the line if you don't already know the
+        relationship?</p>
+        </section>
+        <section>
+          <h4>Least Squares</h4>
+        <ul>
+            <li>Computes the difference between the predicted next value
+              and the actual next value and refines the relationship
+              based on that difference.</li>
+                <li>Doesn't work well on all kinds of
+                  data/relationships.</li></ul>
+        </section>
+        <section>
+          <h4>Gradient Descent</h4>
+          <ul>
+          <li>Also computes the difference between the predicted next
+            value and the actual next value, but by estimating the "best
+            direction" to go in.</li>
+          <li>Analogous to finding the highest point on a hill.</li></ul>
       </section>
 
       <section>
@@ -151,26 +285,259 @@
       </section>
 
       <section>
-        <p style="text-align:left">Instead of starting from a known
-        model or relationship and calculating or computing values, which
-        is what much traditional programming does, machine learning
-        starts with data, and then figures out an approximate model or
-        relationship between the data points. In this sense, machine
-        learning is <strong>data science</strong>, and so can be thought
-        of in terms of OSEMN (<strong>O</strong>btain,
-        <strong>S</strong>crub, <strong>E</strong>xplore,
-        <strong>M</strong>odel, i<strong>N</strong>terpret).</p>
+        <h3>Exercise: Classification</h3>
+        <ul><li>Get <a href="code/data/admission.csv">data</a></li>
+          <li>Write <a
+                       href="code/classification_linear_logistic_regression.rb">code</a></li>
+          <li>Run code (type "ruby
+            classification_linear_logistic_regression.rb")</li>
+        </ul>
       </section>
 
       <section>
-        <p style="text-align:left">Machine Learning falls under the
-        "Model" category. Machine learning models data in order to
-        accomplish tasks like prediction and classification.</p>
+        <h4>Data Sample</h4>
+        <pre><code>
+34.62365962451697,78.0246928153624,0
+30.28671076822607,43.89499752400101,0
+35.84740876993872,72.90219802708364,0
+60.18259938620976,86.30855209546826,1
+79.0327360507101,75.3443764369103,1
+        </code></pre>
       </section>
+
+      <section>
+        <h4>Code Walkthrough</h4>
+        <pre><code data-trim>
+# classification_linear_logistic_regression.rb
+
+require "csv"
+require "liblinear"
+
+x_data = []
+y_data = []
+
+# load cleaned data
+CSV.foreach("./data/admission.csv", :headers => false){|row|
+  x_data.push([row[0].to_f, row[1].to_f]) # exam results in x
+  y_data.push(row[2].to_i) # admission status in y
+}
+
+# split the data into a training data set and a new data set
+# a good split is 80% data for training.
+
+test_size_percentage = 20.0
+test_set_size = x_data.size * (test_size_percentage/100.to_f)
+
+test_x_data = x_data[0 .. (test_set_size-1)]
+test_y_data = y_data[0 .. (test_set_size-1)]
+
+training_x_data = x_data[test_set_size .. x_data.size]
+training_y_data = y_data[test_set_size .. y_data.size]
+
+# set up model and train
+model = Liblinear.train(
+  { solver_type: Liblinear::L2R_LR }, # L2-regularized logistic regression
+  training_y_data, # training data classification
+  training_x_data, # training data independent variables
+  100              # bias
+)
+
+# predict class
+prediction = Liblinear.predict(model, [45, 85])
+
+# get prediction probabilities
+probs = Liblinear.predict_probabilities(model, [45, 85])
+probs = probs.sort
+
+puts "Algorithm predicted class #{prediction}"
+puts "#{probs[1]*100.round(2)}% probability of prediction"
+puts "#{probs[0]*100.round(2)}% probability of being other class"
+
+predicted = []
+test_x_data.each do |params|
+  predicted.push(Liblinear.predict(model, params))
+end
+
+correct = predicted.collect.with_index{|e,i| (e == test_y_data[i]) ? 1 : 0}.inject{ |sum,e| sum+e}
+
+puts "Accuracy: #{((correct.to_f / test_set_size) * 100).round(2)}% - test set of size #{test_size_percentage}%"
+
+        </code></pre>
+      </section>
+
+      <section>
+        <h4>Logistic Regression</h4>
+        <ul><li>Good for binary values (yes/no, pass/fail, etc.)</li>
+          <li>Calculates the <em>probability</em> that a given dependent
+            variable will be 0 or 1</li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Linear vs. Curved Regression</h4>
+        <p style="text-align:left">A straight line can give a very
+        approximate relationship between variables. You can get a much
+        closer fit if you use a curved line.</p>
+      </section>
+
+      <section>
+        <h4>Curved Logistic Regression</h4>
+        <pre><code data-trim>
+# classification_curved_logistic_regression.rb
+
+require "csv"
+require "liblinear"
+
+x_data = []
+y_data = []
+
+# load cleaned data, as opposed to the linear regression, we want to
+# change the x data from [exam1, exam2] to:
+# [exam1, exam1^2, exam2, exam2^2, exam1*exam2]
+# which changes the "decision function" to a linear function to second
+# degree polynomial (quadratic).
+# (Linear functions describe a line, quadratic functions a curve)
+CSV.foreach("./data/admission.csv", :headers => false){|row|
+  x_data.push([row[0].to_f, row[0].to_f**2, row[1].to_f, row[1].to_f**2, row[1].to_f*row[0].to_f]) # exam results in x
+  y_data.push(row[2].to_i) # admission status in y
+}
+
+# split the data into a training data set and a new data set
+# a good split is 80% data for training.
+
+test_size_percentage = 20.0
+test_set_size = x_data.size * (test_size_percentage/100.to_f)
+
+test_x_data = x_data[0 .. (test_set_size-1)]
+test_y_data = y_data[0 .. (test_set_size-1)]
+
+training_x_data = x_data[test_set_size .. x_data.size]
+training_y_data = y_data[test_set_size .. y_data.size]
+
+# set up model and train
+model = Liblinear.train(
+  { solver_type: Liblinear::L2R_LR }, # L2-regularized logistic regression
+  training_y_data, # training data classification
+  training_x_data, # training data independent variables
+  100              # bias
+)
+
+# predict class
+prediction = Liblinear.predict(model, [45, 45**2, 85, 85**2, 45*85])
+
+# get prediction probabilities
+probs = Liblinear.predict_probabilities(model, [45, 45**2, 85, 85**2, 45*85])
+probs = probs.sort
+
+puts "Algorithm predicted class #{prediction}"
+puts "#{probs[1]*100.round(2)}% probability of prediction"
+puts "#{probs[0]*100.round(2)}% probability of being other class"
+
+predicted = []
+test_x_data.each do |params|
+  predicted.push(Liblinear.predict(model, params))
+end
+
+correct = predicted.collect.with_index{|e,i| (e == test_y_data[i]) ? 1 : 0}.inject{ |sum,e| sum+e}
+
+puts "Accuracy: #{((correct.to_f / test_set_size) * 100).round(2)}% - test set of size #{test_size_percentage}%"
+
+        </code></pre>
+      </section>
+
+      <section>
+        <h4>Accuracy</h4>
+        <p>Linear Logistic Regression:</p>
+        <img src="img/linear_accuracy.png"/>
+        <p>Curved Logistic Regression:</p>
+        <img src="img/curved_accuracy.png"/>
+      </section>
+
 
       <section>
         <h3>Where does "learning" come in?</h3>
       </section>
+
+      <section>
+        <p>Going back to our first example, what if we only had two
+        points?</p>
+        <img src="img/two-points.png" height="500" />
+      </section>
+
+      <section>
+        <p>Three points?</p>
+        <img src="img/three-points.png" height="500" />
+        </p>
+      </section>
+
+      <section>
+        <p>Ten points?</p>
+        <img src="img/many-points.png" height="500" />
+      </section>
+
+      <section>
+        <p>The more data, the more information there is to understand
+        the relationship; in other words, the more information there is
+        to build the model.</p>
+        <p>The same effect can be achieved by running over the same data
+        multiple times.</p>
+      </section>
+
+      <section>
+        <p>Learning works slightly differently in neural networks, but
+        the principle is the same...</p>
+      </section>
+
+      <section>
+        <h3>Neural Networks</h3>
+      </section>
+
+      <section>
+        <ul><li>(Crudely) modeled on how we think synapses work.</li>
+          <li>Uses signal strength between "neurons" to "learn" a
+            relationship between input data and output data.</li>
+          <li>We can think of a neural network as a function...</li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Functions</h4>
+        <p style="text-align:left">A function maps a dependent variable
+        on to an independent variable. Functions can be very simple:</p>
+        <p>y = 2x</p>
+        <p style="text-align:left">In Ruby:</p>
+        <pre><code>
+        def y(x)
+          x*2
+        end
+        </code></pre>
+      </section>
+
+      <section>
+        <p style="text-align:left">Functions can be a bit more
+        complicated:</p>
+        <pre><code>
+        def verified(issn)
+          /\d{4}-\d{3}\d|X/ =~ issn ? issn : "NO ISSN"
+        end
+        </code></pre>
+
+        <p style="text-align:left">And they can be very complex.</p>
+      </section>
+
+      <section>
+        <p style="text-align:left">Normal mathematic or programming
+        functions take in very well-defined data (usually broken down
+        into variables) and transforms that data according to a known
+        and well-defined algorithm. A neural network takes more-or-less undefined
+        data and has to build up its algorithm through trial-and-error.
+        In many ways, it takes the idea of "computing error" to very
+        sophisticated lengths.</p>
+      </section>
+
+
+
+
           
 
 
@@ -185,6 +552,7 @@
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
+        hash: true,
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
