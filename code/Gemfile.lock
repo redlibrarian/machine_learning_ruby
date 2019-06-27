@@ -1,12 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    liblinear-ruby (1.0.3)
+    ruby-fann (1.2.6)
     ruby_linear_regression (0.1.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  liblinear-ruby
+  ruby-fann
   ruby_linear_regression
 
 BUNDLED WITH
